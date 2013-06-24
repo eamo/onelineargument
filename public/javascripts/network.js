@@ -130,12 +130,9 @@ function addTweet(userText, tweetText, profile_image_url, retweets, tweetLink) {
   tweet.text = tweet.text.replace("If","if");
   tweet.text = tweet.text.replace("Then","then");
   tweet.text = tweet.text.replace("THEN","then");
-  console.log(tweet.text);
   tweet.text = tweet.text.substring(tweet.text.search("if ")+3,tweet.text.length)
   var n = [];
-  console.log(tweet.text);
   n=tweet.text.split("then");
-  console.log(n);
   node0 = {name: userText, type: "user-node", retweets: retweets, tweetLink: tweetLink, profile_image_url: profile_image_url};
   node1 = {name: "IF", type: "if-node"};
   node2 = {name: n[0], type: "text-node"};
