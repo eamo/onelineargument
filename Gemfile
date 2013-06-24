@@ -52,6 +52,8 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 # D3
 gem 'd3-rails'
+#Google Analytics
+gem 'google-analytics-rails'
 
 group :development, :test do
   gem 'debugger'
