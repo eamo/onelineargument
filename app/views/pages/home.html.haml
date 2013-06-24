@@ -1,0 +1,18 @@
+!!!
+%link{:href => "/network.css", :rel => "stylesheet", :type => "text/css"}/
+#chart
+
+%script{:src => "/javascripts/network.js", :type => "text/javascript"}
+
+- if defined?(@theseTweets)
+  - @theseTweets.each do |tweet|
+    :javascript
+      addTweet(#{'"@' + tweet.screen_name + '"'}, #{'"' + tweet.text.gsub(/"/, "'").gsub(/\n/," ") + '"'}, #{'"' + tweet.profile_image_url + '"'},
+      #{'"' + tweet.retweeted.to_s + '"'}, #{'"https://twitter.com/' + tweet.screen_name + '/status/' + tweet.id_str + '"'});
+
+- else
+  :javascript
+    (function(){
+      addTweet("onelineargument","If you sign in with Twitter then you'll see how this app works #ola",'https://si0.twimg.com/profile_images/378800000039122646/94cb19f1f9266d51069cbd1369d7bd9b_normal.png',0, #{'"https://twitter.com/onelineargument/status/349150221428723712"'})
+      setTimeout(arguments.callee, 10000);
+    })();

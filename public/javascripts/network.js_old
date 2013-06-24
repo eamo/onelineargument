@@ -1,0 +1,176 @@
+/* Height & Width */
+
+var width = 1000,
+    height = 600,
+    radius = 6;
+
+/* Colour Scale */
+var color = d3.scale.category20();
+
+/* Force Directed Parameters */
+var force = d3.layout.force()
+    .charge(-1000)
+    .linkDistance(30)
+    .size([width, height]);
+
+/* Initialise SVG Element */
+var svg = d3.select("body").select("#main-container").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+/* Load File and begin to generate chart */
+graph = {
+	"nodes":[
+	{"name":"if", "group":1}
+	],
+	"links":[
+	]
+}
+  
+  force.nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+  /*******
+  * Links
+  *******/
+  var link = svg.selectAll(".link")
+      .data(graph.links)
+
+  link.enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return 2; });
+  
+  link.exit().remove;
+  /*******
+  * Node
+  *******/
+  var node = svg.selectAll(".node")
+      .data(graph.nodes)
+    .enter().append("g")
+      .attr("group", function(d) {return d.group})
+      .attr("transform", function(d) { return "translate(" + Math.max(radius, Math.min(width - radius, d.x)) + "," + Math.max(radius, Math.min(height - radius, d.y)) + ")"; })
+      .call(force.drag);
+
+  var nodes = force.nodes(),
+      links = force.links();
+
+   node.append("text")
+      .attr("class", "invisible")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      .attr("x", -20)
+      .attr("y", 0)
+      .text(function(d) { return d.name });
+
+   node.each(function(d){d.textWidth = (this.getBBox().width)});
+
+node.append("rect")
+      .attr("x", function(d) { return -d.textWidth/2 })
+      .attr("y", -11 )
+      .attr("width", function(d) { return d.textWidth + 10 })
+      .attr("height", 22)
+      .attr("ry", 5)
+      .attr("rx", 5)
+      .attr("class", "node");
+  /*******
+  * Node Append
+  *******/
+  node.append("text")
+      .attr("text-anchor", "middle")
+      .attr("class", "text")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      .attr("x", function(d) {return -8 })
+      .attr("y", -1)
+      .text(function(d) { return d.name });
+
+  node.append("title")
+      .text(function(d) { return d.name; });
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+	
+     node.attr("transform", function(d) { return "translate(" + Math.max(radius, Math.min(width - radius, d.x)) + "," + Math.max(radius, Math.min(height - radius, d.y)) + ")"; });
+  });
+
+
+	function restart() {
+	  
+	  link = link.data(links);
+	  link.enter().append("line")
+	      .attr("class", "link")
+	  node = node.data(nodes);
+	
+	  var newNode = node.enter().insert("g")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("group", function(d) { return newGroup = d.group})
+      .call(force.drag);
+	
+/*	  newNode.append("text")
+	      .attr("class", "invisible")
+	      .attr("dx", 12)
+	      .attr("dy", ".35em")
+	      .attr("x", -20)
+	      .attr("y", 0)
+	      .text(function(d) { return d.name });
+
+   newNode.each(function(d){d.textWidth = (this.getBBox().width)});
+
+   newNode.append("rect")
+      .attr("x", function(d) { return -d.textWidth/2 })
+      .attr("y", -11 )
+      .attr("width", function(d) { return d.textWidth + 10 })
+      .attr("height", 22)
+      .attr("ry", 5)
+      .attr("rx", 5)
+      .attr("class", "node");
+  /*******
+  * Node Append
+  *******/
+/*  newNode.append("text")
+      .attr("text-anchor", "middle")
+      .attr("class", "text")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      .attr("x", function(d) {return -8 })
+      .attr("y", -1)
+      .text(function(d) { return d.name });
+*/
+	newNode.append("foreignObject")
+	    .attr("x",-45)
+	    .attr("width", 90)
+	    .attr("height", 200)
+	  .append("xhtml:p")
+ 	    .attr("class", "text-node")
+	    .html(function(d) { return d.name });
+	
+	force.start();
+
+	}
+
+function addTweet(tweetText) {
+  tweet = {};
+  tweet.text = tweetText.toLowerCase();
+  tweet.id = 323;
+  tweet.url = 'http://www.google.com'
+  tweet.text = tweet.text.substring(tweet.text.search("if")+2,tweet.text.length)
+  console.log(tweet.text);
+  var n = [];
+  n=tweet.text.split(" then ");
+  //Do the adding of nodes here!!
+  node2 = {id: parseInt("2" + String(tweet.id)), name: n[0], group: tweet.id};
+  node3 = {id: parseInt("3" + String(tweet.id)), name: "then", group: tweet.id};
+  node4 = {id: parseInt("4" + String(tweet.id)), name: n[1], group: tweet.id};
+
+  nodes.push(node2);
+  nodes.push(node3);
+  nodes.push(node4);
+  links.push({source: 0, target: node2});
+  links.push({source: node2, target: node3});
+  links.push({source: node3, target: node4});
+  restart();
+}

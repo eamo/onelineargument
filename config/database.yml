@@ -1,0 +1,32 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+# For production - use heroku pg:credentials DATABASE --app cryptic-forest-7539
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: ola_dev
+  host: localhost
+  pool: 5
+  username: eamo     
+  password: Eamoeamo1
+
+test: 
+  adapter: postgresql
+  encoding: utf8
+  database: ola_test
+  host: localhost
+  pool: 5
+  username: eamo     
+  password: Eamoeamo1
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: project_production
+  host: localhost
+  pool: 5
+  username: eamo     
+  password: Eamoeamo1

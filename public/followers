@@ -1,0 +1,20 @@
+{
+	"nodes":[
+	{"name":"if", "group":1},
+	{"name":"I have an apple a day", "group":1},
+	{"name":"then", "group":1},
+	{"name":"I'd keep the doctor away", "group":1},
+	{"name":"if", "group":2},
+	{"name":"I have an apple a day", "group":2},
+	{"name":"then", "group":2},
+	{"name":"I'd keep the doctor away", "group":2}
+	],
+	"links":[
+    {"source":0,"target":1,"value":1},
+    {"source":1,"target":2,"value":8},
+    {"source":2,"target":3,"value":10},
+    {"source":4,"target":5,"value":1},
+    {"source":5,"target":6,"value":8},
+    {"source":6,"target":7,"value":10}
+	]
+}

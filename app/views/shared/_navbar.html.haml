@@ -1,0 +1,13 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      = link_to "The Logic of the Twitterverse", '#', class: 'brand'
+      %ul.nav         
+        %li{:class => if params[:type] != 'new' then 'active' end, :data => {:no_turbolink => 'true'}}= link_to "Top", root_url
+        %li{:class => if params[:type] == 'new' then 'active' end, :data => {:no_turbolink => 'true'}}= link_to "New", '/tweets/new'
+      %ul.nav.pull-right         
+        - if user_signed_in?
+          %li= link_to current_user.name, users_path(current_user) 
+          %li{:data => {:no_turbolink => 'true'}}= link_to "Sign out", signout_path
+        - else
+          %li= link_to "Sign in with Twitter", signin_path(:twitter)
