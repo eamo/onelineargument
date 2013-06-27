@@ -11,7 +11,7 @@ class PagesController < ApplicationController
         @tweets = tweet_client.user_timeline(:uid => current_user.uid)
         @theseTweets = []
         @tweets.each do |tweet|
-          if tweet.text.include?("if") && tweet.text.include?("then")
+          if tweet.text.downcase.include?("if") && tweet.text.downcase.include?("then")
             lt = LogicTweet.find_or_initialize_by_id_str(tweet.attrs[:id_str])
             lt.tweet_created_at =tweet[:created_at]
             lt.id_str = tweet.attrs[:id_str]
@@ -27,7 +27,6 @@ class PagesController < ApplicationController
             @theseTweets.push(lt)
           end
         end
-        
       else  
         @tweets = tweet_client.search("if then", :count => 20, :lang => 'en', :result_type => "recent")
         @theseTweets = []
@@ -66,6 +65,8 @@ class PagesController < ApplicationController
           end
         end
       end
+    elsif params[:type] == nil && params[:other] == nil
+      @theseTweets = LogicTweet.all.limit(20).order('retweeted desc')
     end
   end
   
