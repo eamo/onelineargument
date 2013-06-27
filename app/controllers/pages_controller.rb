@@ -67,7 +67,16 @@ class PagesController < ApplicationController
         end
       end
     elsif params[:type] == nil && params[:other] == nil
-      @theseTweets = LogicTweet.all.limit(10).order('retweeted desc')
+      @candidateTweets = LogicTweet.all.order('retweeted desc')
+      @theseTweets = []
+      @candidateTweets.each do |tweet|
+        if tweet.text[0,2] != "RT"
+          @theseTweets.push(tweet)
+        end
+      end
+      @theseTweets = @theseTweets[0..9]
+      @theseTweets.each do |tweet|   
+      end
     end
   end
   
