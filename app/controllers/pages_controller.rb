@@ -12,7 +12,7 @@ class PagesController < ApplicationController
         @theseTweets = []
         @tweets.each do |tweet|
           if tweet.text.downcase.include?("if") && tweet.text.downcase.include?("then")
-            lt = LogicTweet.find_or_initialize_by_id_str(tweet.attrs[:id_str])
+            lt = LogicTweet.  find_or_initialize_by_text(tweet.attrs[:text])
             lt.tweet_created_at =tweet[:created_at]
             lt.id_str = tweet.attrs[:id_str]
             lt.text = tweet[:text]
@@ -32,7 +32,7 @@ class PagesController < ApplicationController
         @theseTweets = []
         @tweets.statuses.each do |tweet|
           #check if tweet exists
-          lt = LogicTweet.find_or_initialize_by_id_str(tweet.attrs[:id_str])
+          lt = LogicTweet.  find_or_initialize_by_text(tweet.attrs[:text])
           lt.tweet_created_at =tweet[:created_at]
           lt.id_str = tweet.attrs[:id_str]
           lt.text = tweet[:text]
@@ -92,7 +92,7 @@ class PagesController < ApplicationController
        @tweets.each do |tweet|
          if tweet.text.include?("if") && tweet.text.include?("then")
            puts tweet.text
-           lt = LogicTweet.find_or_initialize_by_id_str(tweet.attrs[:id_str])
+           lt = LogicTweet.  find_or_initialize_by_text(tweet.attrs[:text])
            lt.tweet_created_at =tweet[:created_at]
            lt.id_str = tweet.attrs[:id_str]
            lt.text = tweet[:text]

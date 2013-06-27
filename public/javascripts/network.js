@@ -12,7 +12,7 @@ $(window).on("resize", function() {
     height = $(window).height();
     svg.attr("width", width);
     svg.attr("height", height-30-70);
-	force.start();
+	force.resume();
 });
 
 $(window).on("load", function() {
@@ -22,7 +22,7 @@ $(window).on("load", function() {
     height = $(window).height();
     svg.attr("width", width);
     svg.attr("height", height-30-70);
-	force.start();
+	force.resume();
 });
 
 function replaceURLWithHTMLLinks(text) {
@@ -57,7 +57,8 @@ graph = {
 
   force.nodes(graph.nodes)
       .links(graph.links)
-      .start();
+	  .start();
+      
   /*******
   * Links
   *******/
