@@ -11,7 +11,7 @@ $(window).on("resize", function() {
     width = targetWidth
     height = $(window).height();
     svg.attr("width", width);
-    svg.attr("height", height);
+    svg.attr("height", height-30);
 	force.start();
 });
 
@@ -21,7 +21,7 @@ $(window).on("load", function() {
     width = targetWidth
     height = $(window).height();
     svg.attr("width", width);
-    svg.attr("height", height);
+    svg.attr("height", height-30);
 	force.start();
 });
 
