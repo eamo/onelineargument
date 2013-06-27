@@ -1,5 +1,16 @@
 !!!
-%link{:href => "/network.css", :rel => "stylesheet", :type => "text/css"}/
+%link{:href => "/network.css", :rel => "stylesheet", :type => "text/css"}
+%div.alert.alert-info
+  %button{:type => "button", :class => "close",:data => {:dismiss=> "alert"}} ×
+  %div{:style => "width:500px"}
+    %p
+      %b How it works
+    %ul{:style => "margin-top: -7px;"}
+      %li 
+        Identify popular tweets that have the structure
+        %b 'If A then B'
+      %li Break into logic components [IF, A, THEN, B]
+      %li Visualise (Hover to select / Click image to open)
 
 %script{:src => "/javascripts/network.js", :type => "text/javascript"}
 

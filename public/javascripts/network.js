@@ -11,7 +11,7 @@ $(window).on("resize", function() {
     width = targetWidth
     height = $(window).height();
     svg.attr("width", width);
-    svg.attr("height", height-30);
+    svg.attr("height", height-30-70);
 	force.start();
 });
 
@@ -21,7 +21,7 @@ $(window).on("load", function() {
     width = targetWidth
     height = $(window).height();
     svg.attr("width", width);
-    svg.attr("height", height-30);
+    svg.attr("height", height-30-70);
 	force.start();
 });
 
@@ -37,8 +37,8 @@ var color = d3.scale.category10();
 
 /* Force Directed Parameters */
 var force = d3.layout.force()
-    .charge(-200)
-    .linkDistance(30)
+    .charge(-400)
+    .linkDistance(40)
     .size([width, height]);
 
 /* Initialise SVG Element */

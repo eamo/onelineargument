@@ -66,7 +66,7 @@ class PagesController < ApplicationController
         end
       end
     elsif params[:type] == nil && params[:other] == nil
-      @theseTweets = LogicTweet.all.limit(20).order('retweeted desc')
+      @theseTweets = LogicTweet.all.limit(10).order('retweeted desc')
     end
   end
   
