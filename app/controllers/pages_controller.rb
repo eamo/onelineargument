@@ -12,7 +12,7 @@ class PagesController < ApplicationController
         @theseTweets = []
         @tweets.each do |tweet|
           if tweet.text.downcase.include?("if") && tweet.text.downcase.include?("then")
-            lt = LogicTweet.  find_or_initialize_by_text(tweet.attrs[:text])
+            lt = LogicTweet.find_or_initialize_by_text(tweet.attrs[:text])
             lt.tweet_created_at =tweet[:created_at]
             lt.id_str = tweet.attrs[:id_str]
             lt.text = tweet[:text]
@@ -23,7 +23,7 @@ class PagesController < ApplicationController
             lt.screen_name = tweet[:user][:screen_name]
             lt.followers_count = tweet[:user][:followers_count]
             lt.friends_count = tweet[:user][:friends_count]
-            lt.save!
+            lt.save!(:validate => false)
             @theseTweets.push(lt)
           end
         end
@@ -32,7 +32,7 @@ class PagesController < ApplicationController
         @theseTweets = []
         @tweets.statuses.each do |tweet|
           #check if tweet exists
-          lt = LogicTweet.  find_or_initialize_by_text(tweet.attrs[:text])
+          lt = LogicTweet.find_or_initialize_by_text(tweet.attrs[:text])
           lt.tweet_created_at =tweet[:created_at]
           lt.id_str = tweet.attrs[:id_str]
           lt.text = tweet[:text]
@@ -43,7 +43,7 @@ class PagesController < ApplicationController
           lt.screen_name = tweet[:user][:screen_name]
           lt.followers_count = tweet[:user][:followers_count]
           lt.friends_count = tweet[:user][:friends_count]
-          lt.save!
+          lt.save!(:validate => false)
           if (tweet.attrs[:retweeted_status] != nil)
             rt = tweet.attrs[:retweeted_status]
             lt = LogicTweet.find_or_initialize_by_id_str(rt[:id_str])
@@ -57,7 +57,7 @@ class PagesController < ApplicationController
             lt.screen_name = rt[:user][:screen_name]
             lt.followers_count = rt[:user][:followers_count]
             lt.friends_count = rt[:user][:friends_count]
-            lt.save!
+            lt.save!(:validate => false)
           end
           @theseTweets.push(lt)
           if params[:type] != 'new'
@@ -92,7 +92,7 @@ class PagesController < ApplicationController
        @tweets.each do |tweet|
          if tweet.text.include?("if") && tweet.text.include?("then")
            puts tweet.text
-           lt = LogicTweet.  find_or_initialize_by_text(tweet.attrs[:text])
+           lt = LogicTweet.find_or_initialize_by_text(tweet.attrs[:text])
            lt.tweet_created_at =tweet[:created_at]
            lt.id_str = tweet.attrs[:id_str]
            lt.text = tweet[:text]
@@ -103,7 +103,7 @@ class PagesController < ApplicationController
            lt.screen_name = tweet[:user][:screen_name]
            lt.followers_count = tweet[:user][:followers_count]
            lt.friends_count = tweet[:user][:friends_count]
-           lt.save!
+           lt.save!(:validate => false)
            @theseTweets.push(lt)
          end
         end
