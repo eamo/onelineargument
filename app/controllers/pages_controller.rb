@@ -28,7 +28,7 @@ class PagesController < ApplicationController
           end
         end
       else  
-        @tweets = tweet_client.search("if then", :count => 20, :lang => 'en', :result_type => "recent")
+        @tweets = tweet_client.search("if then", :count => 100, :lang => 'en', :result_type => "recent")
         @theseTweets = []
         @tweets.statuses.each do |tweet|
           #check if tweet exists
@@ -61,8 +61,9 @@ class PagesController < ApplicationController
           end
           @theseTweets.push(lt)
           if params[:type] != 'new'
-            @theseTweets = LogicTweet.all.limit(20).order('retweeted desc')
+            @theseTweets = LogicTweet.all.limit(10).order('retweeted desc')
           end
+          @theseTweets = @theseTweets[0..9]
         end
       end
     elsif params[:type] == nil && params[:other] == nil

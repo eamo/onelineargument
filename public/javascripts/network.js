@@ -38,7 +38,7 @@ var color = d3.scale.category10();
 /* Force Directed Parameters */
 var force = d3.layout.force()
     .charge(-400)
-    .linkDistance(40)
+    .linkDistance(60)
     .size([width, height]);
 
 /* Initialise SVG Element */
