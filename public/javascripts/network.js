@@ -150,21 +150,21 @@ graph = {
 	    .attr("x",function(d) {return -Math.min(90, d.textWidth)/2})
 	    .attr("y", function(d) {
 			if (d.type == "user-node") 
-				{return -36}
+				{return -45}
 			else
-				{return -(15 + 10 * Math.floor(d.textWidth/120) + 4)/2}
+				{return -(15 + 17 * Math.floor(d.textWidth/120) + 4)/2}
 			})
 	    .attr("width", function(d) {
 			if (d.type == "user-node") 
-				{return 48}
+				{return 60}
 			else
-				{return Math.min(90, d.textWidth+4)}
+				{return Math.min(120, d.textWidth+10)}
 			})
 	    .attr("height", function(d) {
 			if (d.type == "user-node") 
-				{return 72 + 4}
+				{return 72 + 10}
 			else
-			{return  15 + 10 * Math.floor(d.textWidth/120) + 4}
+			{return  15 + 17 * Math.floor(d.textWidth/120) + 10}
 			})
 	  .on("mouseover", mouseover)
 	  .on("mouseout", mouseout)

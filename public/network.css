@@ -9,7 +9,7 @@
 .text-node {
   cursor: pointer;
   text-align:center;
-  font: 8px 'Helvetica Neue';
+  font: 12px 'Helvetica Neue';
   border-style:solid;
   border-width:2px;
   border-color: white;
@@ -33,7 +33,7 @@
 .if-node, .then-node {
   cursor: pointer;
   text-align:center;
-  font: 8px 'Helvetica Neue';
+  font: 12px 'Helvetica Neue';
   border-style:solid;
   border-width:2px;
   border-color: white;
