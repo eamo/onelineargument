@@ -3,8 +3,10 @@
     .container
       = link_to "The Logic of the Twitterverse", '#', class: 'brand'
       %ul.nav         
-        %li{:class => if params[:type] != 'new' then 'active' end, :data => {:no_turbolink => 'true'}}= link_to "Top", root_url
+        %li{:class => if params[:type] != 'new' && params[:type] != 'me' && params[:other] == nil then 'active' end, :data => {:no_turbolink => 'true'}}= link_to "Top", root_url
         %li{:class => if params[:type] == 'new' then 'active' end, :data => {:no_turbolink => 'true'}}= link_to "New", '/tweets/new'
+        %li{:class => if params[:type] == 'me' then 'active' end, :data => {:no_turbolink => 'true'}}= link_to "My Tweets", '/tweets/me'
+        %li{:class => if params[:other] != nil then 'active' end, :data => {:no_turbolink => 'true'}}= link_to "Users Tweets", '/tweets/user/SchoolsMemories'
       %ul.nav.pull-right         
         - if user_signed_in?
           %li= link_to current_user.name, users_path(current_user) 

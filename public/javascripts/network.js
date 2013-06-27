@@ -1,8 +1,29 @@
 /* Height & Width */
 
-var width = 960,
+var width = 940,
     height = 600,
+    aspect = width/height
     radius = 6;
+
+$(window).on("resize", function() {
+	chart = $("#main-container");
+    var targetWidth = chart.width();
+    width = targetWidth
+    height = $(window).height();
+    svg.attr("width", width);
+    svg.attr("height", height);
+	force.start();
+});
+
+$(window).on("load", function() {
+	chart = $("#main-container");
+    var targetWidth = chart.width();
+    width = targetWidth
+    height = $(window).height();
+    svg.attr("width", width);
+    svg.attr("height", height);
+	force.start();
+});
 
 function replaceURLWithHTMLLinks(text) {
 	if(text != undefined) {
@@ -16,14 +37,17 @@ var color = d3.scale.category10();
 
 /* Force Directed Parameters */
 var force = d3.layout.force()
-    .charge(-400)
+    .charge(-200)
     .linkDistance(30)
     .size([width, height]);
 
 /* Initialise SVG Element */
 var svg = d3.select("body").select("#main-container").append("svg")
+    .attr("class","chart")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+	//.attr("viewBox","0 0 960 500")
+	.attr("preserveAspectRatio","xMidYMid");
 
 /* Load File and begin to generate chart */
 graph = {
@@ -62,14 +86,47 @@ graph = {
 
 
   force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-	
-     node.attr("transform", function(d) { return "translate(" + Math.max(radius, Math.min(width - radius, d.x)) + "," + Math.max(radius, Math.min(height - radius, d.y)) + ")"; });
+	node.attr("transform", function(d) { return "translate(" + Math.max(radius, Math.min(width - radius, d.x)) + "," + Math.max(radius+41, Math.min(height - radius, d.y)) + ")"; });
+    link.attr("x1", function(d) { return Math.min(Math.max(0,d.source.x),width); })
+        .attr("y1", function(d) { return Math.min(Math.max(41,d.source.y),height); })
+        .attr("x2", function(d) { return Math.min(Math.max(0,d.target.x),width); })
+        .attr("y2", function(d) { return Math.min(Math.max(41,d.target.y),height); });
   });
 
+	function mouseover() {
+		group = d3.select(this).select("p").attr("group")
+
+	me = d3.selectAll("g").filter(function(d){return d.group == group}).selectAll("p");
+
+	me.transition()
+      .duration(300)
+	  .style("border-color", "black");
+	
+	my_link = d3.selectAll("line").filter(function(d){return d.group == group});
+	my_link.transition()
+		.duration(300)
+		.style("opacity", 1);
+		
+	force.start();
+	
+	}
+
+	function mouseout() {
+			group = d3.select(this).select("p").attr("group")
+
+		me = d3.selectAll("g").filter(function(d){return d.group == group}).selectAll("p");
+		me.transition()
+	      .duration(300)
+		  .style("border-color", "white");
+		
+		my_link = d3.selectAll("line").filter(function(d){return d.group == group});
+		my_link.transition()
+			.duration(300)
+			.style("opacity", 0.4);
+			
+		force.start();
+	}
+	
 	function restart() {	  
 	  link = link.data(links);
 	
@@ -95,22 +152,25 @@ graph = {
 			if (d.type == "user-node") 
 				{return -36}
 			else
-				{return -(13* Math.floor(1+d.textWidth/150))/2}
+				{return -(15 + 10 * Math.floor(d.textWidth/120) + 4)/2}
 			})
 	    .attr("width", function(d) {
 			if (d.type == "user-node") 
 				{return 48}
 			else
-				{return Math.min(90, d.textWidth)}
+				{return Math.min(90, d.textWidth+4)}
 			})
 	    .attr("height", function(d) {
 			if (d.type == "user-node") 
-				{return 72}
+				{return 72 + 4}
 			else
-			{return  15 + 10 * Math.floor(d.textWidth/150)}
+			{return  15 + 10 * Math.floor(d.textWidth/120) + 4}
 			})
+	  .on("mouseover", mouseover)
+	  .on("mouseout", mouseout)
 	  .append("xhtml:p")
- 	    .attr("class", function(d) {return d.type})
+ 	    .attr("group", function(d) {return d.group})
+		.attr("class", function(d) {return d.type})
 	    .html(function(d) {
 			if(d.type == "text-node") 
 				{return replaceURLWithHTMLLinks(d.name) }
@@ -124,7 +184,7 @@ graph = {
 
 	}
 
-function addTweet(userText, tweetText, profile_image_url, retweets, tweetLink) {
+function addTweet(userText, tweetText, profile_image_url, retweets, tweetLink, id_str) {
   tweet = {};
   tweet.text = tweetText.replace("IF","if");
   tweet.text = tweet.text.replace("If","if");
@@ -133,20 +193,20 @@ function addTweet(userText, tweetText, profile_image_url, retweets, tweetLink) {
   tweet.text = tweet.text.substring(tweet.text.search("if ")+3,tweet.text.length)
   var n = [];
   n=tweet.text.split("then");
-  node0 = {name: userText, type: "user-node", retweets: retweets, tweetLink: tweetLink, profile_image_url: profile_image_url};
-  node1 = {name: "IF", type: "if-node"};
-  node2 = {name: n[0], type: "text-node"};
-  node3 = {name: "THEN", type: "then-node"};
-  node4 = {name: n[1], type: "text-node"};
+  node0 = {name: userText, type: "user-node", retweets: retweets, tweetLink: tweetLink, profile_image_url: profile_image_url, group: id_str};
+  node1 = {name: "IF", type: "if-node", group: id_str};
+  node2 = {name: n[0], type: "text-node", group: id_str};
+  node3 = {name: "THEN", type: "then-node", group: id_str};
+  node4 = {name: n[1], type: "text-node", group: id_str};
   nodes.push(node0);
   nodes.push(node1);
   nodes.push(node2);
   nodes.push(node3);
   nodes.push(node4);
-  links.push({source: node0, target: node1});
-  links.push({source: node1, target: node2});
-  links.push({source: node2, target: node3});
-  links.push({source: node3, target: node4});
+  links.push({source: node0, target: node1, group: id_str});
+  links.push({source: node1, target: node2, group: id_str});
+  links.push({source: node2, target: node3, group: id_str});
+  links.push({source: node3, target: node4, group: id_str});
   restart();
 }
 

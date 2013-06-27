@@ -1,6 +1,5 @@
 !!!
 %link{:href => "/network.css", :rel => "stylesheet", :type => "text/css"}/
-#chart
 
 %script{:src => "/javascripts/network.js", :type => "text/javascript"}
 
@@ -8,7 +7,7 @@
   - @theseTweets.each do |tweet|
     :javascript
       addTweet(#{'"@' + tweet.screen_name + '"'}, #{'"' + tweet.text.gsub(/"/, "'").gsub(/\n/," ") + '"'}, #{'"' + tweet.profile_image_url + '"'},
-      #{'"' + tweet.retweeted.to_s + '"'}, #{'"https://twitter.com/' + tweet.screen_name + '/status/' + tweet.id_str + '"'});
+      #{'"' + tweet.retweeted.to_s + '"'}, #{'"https://twitter.com/' + tweet.screen_name + '/status/' + tweet.id_str + '"'}, #{tweet.id_str});
 
 - else
   :javascript

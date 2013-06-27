@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
     user.token = auth['credentials']['token']
     user.secret = auth['credentials']['secret']
-    user.save                      
+    user.save!
     
     session[:user_id] = user.id
     redirect_to root_url, :notice => "Signed in!"
