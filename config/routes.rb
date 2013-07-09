@@ -1,5 +1,9 @@
 Starterapp::Application.routes.draw do
 
+  get "bubble_cloud/view1"
+  get "bubble_cloud/view2"
+  get "bubble_cloud/view3"
+  get "bubble_cloud/view4"
   resources :users
   root 'pages#home'
   get 'tweets/:type' => 'pages#home'

@@ -54,6 +54,8 @@ gem 'omniauth-twitter'
 gem 'd3-rails'
 #Google Analytics
 gem 'google-analytics-rails'
+#Make CSV
+gem "comma", "~> 3.0"
 
 group :development, :test do
   gem 'debugger'

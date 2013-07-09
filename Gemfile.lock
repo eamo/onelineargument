@@ -63,6 +63,7 @@ GEM
     coffee-script-source (1.6.2)
     colorize (0.5.8)
     columnize (0.3.6)
+    comma (3.0.4)
     commonjs (0.2.6)
     coveralls (0.6.7)
       colorize
@@ -311,6 +312,7 @@ DEPENDENCIES
   bullet
   capybara
   coffee-rails (~> 4.0.0)
+  comma (~> 3.0)
   coveralls
   d3-rails
   database_cleaner!

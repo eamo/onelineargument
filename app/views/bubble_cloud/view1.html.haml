@@ -1,0 +1,31 @@
+!!!
+
+%div.alert.alert-info
+  %button{:type => "button", :class => "close",:data => {:dismiss=> "alert"}} ×
+  %div{:style => "width:600px"}
+    %p
+      %b How it works
+    %ul{:style => "margin-top: -7px;"}
+      %li 
+        Use twitter API to identify popular tweets that have the structure
+        %b 'If A then B'
+      %li Break each tweet into it's logic components i.e. [IF, A, THEN, B]
+      %li Visualise (Hover to select / Click image to open)
+%div#main{:role =>"main"}
+  %div#view_selection.btn-group
+    %a#all.btn.active{:href=>"#"} All
+    %a#year.btn{:href=>"#"} By Cyclist
+
+:javascript
+    $(document).ready(function() {
+        $(document).ready(function() {
+          $('#view_selection a').click(function() {
+            var view_type = $(this).attr('id');
+            $('#view_selection a').removeClass('active');
+            $(this).toggleClass('active');
+            toggle_view(view_type);
+            return false;
+          });
+        });
+    });
+%div#vis

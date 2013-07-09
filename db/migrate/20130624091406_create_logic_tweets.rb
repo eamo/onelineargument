@@ -11,12 +11,13 @@ class CreateLogicTweets < ActiveRecord::Migration
       t.string :screen_name
       t.integer :followers_count
       t.integer :friends_count
-    
+      t.string :tweet_scrape_category
       t.timestamps
     end
     
     add_index :logic_tweets, :retweeted
     add_index :logic_tweets, :user_id_str
-    add_index :logic_tweets, :id_str, :unique => true
+    add_index :logic_tweets, :id_str
+    add_index :logic_tweets, :tweet_scrape_category
   end
 end

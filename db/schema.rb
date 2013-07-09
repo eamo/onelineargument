@@ -22,14 +22,20 @@ ActiveRecord::Schema.define(version: 20130624091406) do
     t.string   "text"
     t.string   "user_id_str"
     t.string   "profile_image_url"
-    t.string   "favorited"
-    t.string   "retweeted"
+    t.integer  "favorited"
+    t.integer  "retweeted"
     t.string   "screen_name"
-    t.string   "followers_count"
-    t.string   "friends_count"
+    t.integer  "followers_count"
+    t.integer  "friends_count"
+    t.string   "tweet_scrape_category"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "logic_tweets", ["id_str"], name: "index_logic_tweets_on_id_str", using: :btree
+  add_index "logic_tweets", ["retweeted"], name: "index_logic_tweets_on_retweeted", using: :btree
+  add_index "logic_tweets", ["tweet_scrape_category"], name: "index_logic_tweets_on_tweet_scrape_category", using: :btree
+  add_index "logic_tweets", ["user_id_str"], name: "index_logic_tweets_on_user_id_str", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider"
