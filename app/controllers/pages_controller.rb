@@ -84,12 +84,6 @@ class PagesController < ApplicationController
       @theseTweets.each do |tweet|   
       end
     end
-    File.open("tweets.cup", 'w') do |file| 
-    @tweets = tweet_client.search("if then-RT", :count => 200, :lang => 'en', :result_type => "recent")
-    @tweets.statuses.each do |x|
-        file.puts x.text.gsub('\n', '').gsub('\r', '')
-    end
-  end
   end
   
    def other

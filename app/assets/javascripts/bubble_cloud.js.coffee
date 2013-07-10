@@ -70,6 +70,7 @@ class BubbleChart
         group: d.group
         text: d.text
         cyclist: switch
+          when Math.min(0,d.text.search("Froome")) + Math.min(0,d.text.search("Valverde")) + Math.min(0,d.text.search("Mollema")) + Math.min(0,d.text.search("Dam")) + Math.min(0,d.text.search("Kreuziger")) + Math.min(0,d.text.search("Contador")) + Math.min(0,d.text.search("Rojas")) + Math.min(0,d.text.search("Martin")) + Math.min(0,d.text.search("Rodriguez")) + Math.min(0,d.text.search("Costa")) > -9 then "None"
           when d.text.search("Froome") > -1 then "Froome"
           when d.text.search("Valverde") > -1 then "Valverde"
           when d.text.search("Mollema") > -1 then "Mollema"
@@ -201,7 +202,7 @@ class BubbleChart
     years = @vis.selectAll(".years").remove()
 
   show_details: (data, i, element) =>
-    d3.select(element).attr("stroke", "black").attr("stroke-width", 2)
+    d3.select(element).attr("stroke-width", 3)
     
     content = "<span class=\"name\">Tweeted by:</span><span class=\"value\"> #{data.screen_name}</span><br/>"
     content +="<span class=\"name\">Date:</span><span class=\"value\"> #{data.tweet_created_at}</span><br/>"

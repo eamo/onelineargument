@@ -19,10 +19,10 @@
             Bubble Cloud
             %b.caret
           %ul.dropdown-menu
-            %li{:data => {:no_turbolink => 'true'}}= link_to "View 1", bubble_cloud_view1_path
-            %li{:data => {:no_turbolink => 'true'}}= link_to "View 2", bubble_cloud_view2_path
-            %li{:data => {:no_turbolink => 'true'}}= link_to "View 3", bubble_cloud_view3_path
-            %li{:data => {:no_turbolink => 'true'}}= link_to "View 4", bubble_cloud_view4_path
+            %li{:data => {:no_turbolink => 'true'}}= link_to "#leTour", bubble_cloud_view1_path
+            %li{:data => {:no_turbolink => 'true'}}= link_to "TBC", bubble_cloud_view2_path
+            %li{:data => {:no_turbolink => 'true'}}= link_to "TBC", bubble_cloud_view3_path
+            %li{:data => {:no_turbolink => 'true'}}= link_to "TBC", bubble_cloud_view4_path
       %ul.nav.pull-right         
         - if user_signed_in?
           %li= link_to current_user.name, users_path(current_user) 
