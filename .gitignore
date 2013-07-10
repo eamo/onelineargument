@@ -12,6 +12,7 @@
 # OSX.gitignore
 .DS_Store
 .AppleDouble
+
 .LSOverride
 Icon
 
@@ -39,6 +40,7 @@ capybara-*.html
 /db/*.sqlite3
 /public/system/*
 /coverage/
+/config/local_env.yml
 /spec/tmp/*
 **.orig
 rerun.txt
